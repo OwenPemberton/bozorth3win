@@ -27,6 +27,9 @@
     <ClInclude Include="inc\bozorth.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="inc\nbisversion.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="dllmain.cpp">

@@ -44,9 +44,20 @@ of the software.
 #ifndef _BOZORTH_H
 #define _BOZORTH_H
 
-/* The max number of points in any Probe or Gallery XYT is set to 200; */
-/* a pointwise comparison table therefore has a maximum number of:     */
-/*		(200^2)/2 = 20000 comparisons. */
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+#ifdef BOZORTH_EXPORTS
+#define BOZORTH_API __declspec(dllexport)
+#else
+#define BOZORTH_API __declspec(dllimport)
+#endif
+
+	/* The max number of points in any Probe or Gallery XYT is set to 200; */
+	/* a pointwise comparison table therefore has a maximum number of:     */
+	/*		(200^2)/2 = 20000 comparisons. */
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -102,7 +113,7 @@ of the software.
 
 /**************************************************************************/
 /**************************************************************************/
-                        /* GENERAL DEFINITIONS */
+						/* GENERAL DEFINITIONS */
 /**************************************************************************/
 
 #define FPNULL ((FILE *) NULL)
@@ -142,7 +153,7 @@ of the software.
 
 /**************************************************************************/
 /**************************************************************************/
-                          /* MACROS DEFINITIONS */
+						  /* MACROS DEFINITIONS */
 /**************************************************************************/
 #define INT_SET(dst,count,value) { \
 		int * int_set_dst   = (dst); \
@@ -163,7 +174,7 @@ of the software.
 
 /**************************************************************************/
 /**************************************************************************/
-                         /* STRUCTURES & TYPEDEFS */
+						 /* STRUCTURES & TYPEDEFS */
 /**************************************************************************/
 
 /**************************************************************************/
@@ -171,142 +182,147 @@ of the software.
 /**************************************************************************/
 
 /* Used by call to stdlib qsort() */
-struct minutiae_struct {
-	int col[4];
-};
+	struct minutiae_struct {
+		int col[4];
+	};
 
-/* Used by custom quicksort */
+	/* Used by custom quicksort */
 #define BZ_STACKSIZE    1000
-struct cell {
-	int		index;	/* pointer to an array of pointers to index arrays */
-	int		item;	/* pointer to an item array */
-};
+	struct cell {
+		int		index;	/* pointer to an array of pointers to index arrays */
+		int		item;	/* pointer to an item array */
+	};
 
-/**************************************************************************/
-/* In BZ_IO : Supports the loading and manipulation of XYT and XYTQ data */
-/**************************************************************************/
+	/**************************************************************************/
+	/* In BZ_IO : Supports the loading and manipulation of XYT and XYTQ data */
+	/**************************************************************************/
 #define MAX_FILE_MINUTIAE       1000 /* bz_load() */
 
-struct xyt_struct {
-	int nrows;
-	int xcol[     MAX_BOZORTH_MINUTIAE ];
-	int ycol[     MAX_BOZORTH_MINUTIAE ];
-	int thetacol[ MAX_BOZORTH_MINUTIAE ];
-};
+	struct xyt_struct {
+		int nrows;
+		int xcol[MAX_BOZORTH_MINUTIAE];
+		int ycol[MAX_BOZORTH_MINUTIAE];
+		int thetacol[MAX_BOZORTH_MINUTIAE];
+	};
 
-struct xytq_struct {
-        int nrows;
-        int xcol[     MAX_FILE_MINUTIAE ];
-        int ycol[     MAX_FILE_MINUTIAE ];
-        int thetacol[ MAX_FILE_MINUTIAE ];
-        int qualitycol[ MAX_FILE_MINUTIAE ];
-};
+	struct xytq_struct {
+		int nrows;
+		int xcol[MAX_FILE_MINUTIAE];
+		int ycol[MAX_FILE_MINUTIAE];
+		int thetacol[MAX_FILE_MINUTIAE];
+		int qualitycol[MAX_FILE_MINUTIAE];
+	};
 
 
 #define XYT_NULL ( (struct xyt_struct *) NULL ) /* bz_load() */
 #define XYTQ_NULL ( (struct xytq_struct *) NULL ) /* bz_load() */
 
 
-/**************************************************************************/
-/**************************************************************************/
-                           /* GLOBAL VARIABLES */
-/**************************************************************************/
+	/**************************************************************************/
+	/**************************************************************************/
+							   /* GLOBAL VARIABLES */
+	/**************************************************************************/
 
-/**************************************************************************/
-/* In: SRC/BIN/BOZORTH3/BOZORTH3.C */
-/**************************************************************************/
+	/**************************************************************************/
+	/* In: SRC/BIN/BOZORTH3/BOZORTH3.C */
+	/**************************************************************************/
 #define BZDEFEXT
 
 #ifdef BZDEFEXT
 /* Globals supporting command line options */
-extern int m1_xyt;
-extern int max_minutiae;
-extern int min_computable_minutiae;
-extern int verbose_main;
-extern int verbose_load;
-extern int verbose_bozorth;
-extern int verbose_threshold;
-/* Global supporting error reporting */
-extern FILE *errorfp;
+	extern BOZORTH_API int m1_xyt;
+	extern BOZORTH_API int max_minutiae;
+	extern BOZORTH_API int min_computable_minutiae;
+	extern BOZORTH_API int verbose_main;
+	extern BOZORTH_API int verbose_load;
+	extern BOZORTH_API int verbose_bozorth;
+	extern BOZORTH_API int verbose_threshold;
+	/* Global supporting error reporting */
+	extern BOZORTH_API FILE* errorfp;
 
 #else
 /* Globals supporting command line options */
-extern int m1_xyt = 0;
-extern int max_minutiae = DEFAULT_BOZORTH_MINUTIAE;
-extern int min_computable_minutiae = MIN_COMPUTABLE_BOZORTH_MINUTIAE;
-extern int verbose_main = 0;
-extern int verbose_load = 0;
-extern int verbose_bozorth = 0;
-extern int verbose_threshold = 0;
-/* Global supporting error reporting */
-extern FILE* errorfp = NULL;
+	extern int m1_xyt = 0;
+	extern int max_minutiae = DEFAULT_BOZORTH_MINUTIAE;
+	extern int min_computable_minutiae = MIN_COMPUTABLE_BOZORTH_MINUTIAE;
+	extern int verbose_main = 0;
+	extern int verbose_load = 0;
+	extern int verbose_bozorth = 0;
+	extern int verbose_threshold = 0;
+	/* Global supporting error reporting */
+	extern FILE* errorfp = NULL;
 
 #endif
 
-/**************************************************************************/
-/* In: BZ_GBLS.C */
-/**************************************************************************/
-/* Global arrays supporting "core" bozorth algorithm */
-extern int colp[ COLP_SIZE_1 ][ COLP_SIZE_2 ];
-extern int scols[ SCOLS_SIZE_1 ][ COLS_SIZE_2 ];
-extern int fcols[ FCOLS_SIZE_1 ][ COLS_SIZE_2 ];
-extern int * scolpt[ SCOLPT_SIZE ];
-extern int * fcolpt[ FCOLPT_SIZE ];
-extern int sc[ BZSC_SIZE ];
-extern int yl[ YL_SIZE_1 ][ YL_SIZE_2 ];
-/* Global arrays supporting "core" bozorth algorithm continued: */
-/*    Globals used significantly by sift() */
-extern int rq[ RQ_SIZE ];
-extern int tq[ TQ_SIZE ];
-extern int zz[ ZZ_SIZE ];
-extern int rx[ RX_SIZE ];
-extern int mm[ MM_SIZE ];
-extern int nn[ NN_SIZE ];
-extern int qq[ QQ_SIZE ];
-extern int rk[ RK_SIZE ];
-extern int cp[ CP_SIZE ];
-extern int rp[ RP_SIZE ];
-extern int rf[RF_SIZE_1][RF_SIZE_2];
-extern int cf[CF_SIZE_1][CF_SIZE_2];
-extern int y[20000];
+	/**************************************************************************/
+	/* In: BZ_GBLS.C */
+	/**************************************************************************/
+	/* Global arrays supporting "core" bozorth algorithm */
+	extern int colp[COLP_SIZE_1][COLP_SIZE_2];
+	extern int scols[SCOLS_SIZE_1][COLS_SIZE_2];
+	extern int fcols[FCOLS_SIZE_1][COLS_SIZE_2];
+	extern int* scolpt[SCOLPT_SIZE];
+	extern int* fcolpt[FCOLPT_SIZE];
+	extern int sc[BZSC_SIZE];
+	extern int yl[YL_SIZE_1][YL_SIZE_2];
+	/* Global arrays supporting "core" bozorth algorithm continued: */
+	/*    Globals used significantly by sift() */
+	extern int rq[RQ_SIZE];
+	extern int tq[TQ_SIZE];
+	extern int zz[ZZ_SIZE];
+	extern int rx[RX_SIZE];
+	extern int mm[MM_SIZE];
+	extern int nn[NN_SIZE];
+	extern int qq[QQ_SIZE];
+	extern int rk[RK_SIZE];
+	extern int cp[CP_SIZE];
+	extern int rp[RP_SIZE];
+	extern int rf[RF_SIZE_1][RF_SIZE_2];
+	extern int cf[CF_SIZE_1][CF_SIZE_2];
+	extern int y[20000];
 
-/**************************************************************************/
-/**************************************************************************/
-/* ROUTINE PROTOTYPES */
-/**************************************************************************/
-/* In: BZ_DRVRS.C */
-extern int bozorth_probe_init( struct xyt_struct *);
-extern int bozorth_gallery_init( struct xyt_struct *);
-extern int bozorth_to_gallery(int, struct xyt_struct *, struct xyt_struct *);
-extern int bozorth_main(struct xyt_struct *, struct xyt_struct *);
-/* In: BOZORTH3.C */
-extern void bz_comp(int, int [], int [], int [], int *, int [][COLS_SIZE_2],
-                    int *[]);
-extern void bz_find(int *, int *[]);
-extern int bz_match(int, int);
-extern int bz_match_score(int, struct xyt_struct *, struct xyt_struct *);
-extern void bz_sift(int *, int, int *, int, int, int, int *, int *);
-/* In: BZ_ALLOC.C */
-extern char *malloc_or_exit(int, const char *);
-extern char *malloc_or_return_error(int, const char *);
-/* In: BZ_IO.C */
-extern int parse_line_range(const char *, int *, int *);
-extern void set_progname(int, char *, pid_t);
-extern void set_probe_filename(char *);
-extern void set_gallery_filename(char *);
-extern char *get_progname(void);
-extern char *get_probe_filename(void);
-extern char *get_gallery_filename(void);
-extern char *get_next_file(char *, FILE *, FILE *, int *, int *, char *,
-			int, char **, int *, int *, int, int);
-extern char *get_score_filename(const char *, const char *);
-extern char *get_score_line(const char *, const char *, int, int, const char *);
-extern struct xyt_struct *bz_load(const char *);
-extern struct xyt_struct *bz_prune(struct xytq_struct *, int);
-extern int fd_readable(int);
-/* In: BZ_SORT.C */
-extern int sort_quality_decreasing(const void *, const void *);
-extern int sort_x_y(const void *, const void *);
-extern int sort_order_decreasing(int [], int, int []);
+	/**************************************************************************/
+	/**************************************************************************/
+	/* ROUTINE PROTOTYPES */
+	/**************************************************************************/
+	/* In: BZ_DRVRS.C */
+	extern BOZORTH_API int bozorth_probe_init(struct xyt_struct*);
+	extern BOZORTH_API int bozorth_gallery_init(struct xyt_struct*);
+	extern BOZORTH_API int bozorth_to_gallery(int, struct xyt_struct*, struct xyt_struct*);
+	extern BOZORTH_API int bozorth_main(struct xyt_struct*, struct xyt_struct*);
+	/* In: BOZORTH3.C */
+	extern BOZORTH_API void bz_comp(int, int[], int[], int[], int*, int[][COLS_SIZE_2],
+		int* []);
+	extern BOZORTH_API void bz_find(int*, int* []);
+	extern BOZORTH_API int bz_match(int, int);
+	extern BOZORTH_API int bz_match_score(int, struct xyt_struct*, struct xyt_struct*);
+	extern BOZORTH_API void bz_sift(int*, int, int*, int, int, int, int*, int*);
+	/* In: BZ_ALLOC.C */
+	extern BOZORTH_API char* malloc_or_exit(int, const char*);
+	extern BOZORTH_API char* malloc_or_return_error(int, const char*);
+	/* In: BZ_IO.C */
+	extern BOZORTH_API int parse_line_range(const char*, int*, int*);
+	extern BOZORTH_API void set_progname(int, char*, pid_t);
+	extern BOZORTH_API void set_probe_filename(char*);
+	extern BOZORTH_API void set_gallery_filename(char*);
+	extern BOZORTH_API char* get_progname(void);
+	extern BOZORTH_API char* get_probe_filename(void);
+	extern BOZORTH_API char* get_gallery_filename(void);
+	extern BOZORTH_API char* get_next_file(char*, FILE*, FILE*, int*, int*, char*,
+		int, char**, int*, int*, int, int);
+	extern BOZORTH_API char* get_score_filename(const char*, const char*);
+	extern BOZORTH_API char* get_score_line(const char*, const char*, int, int, const char*);
+	extern BOZORTH_API struct xyt_struct* bz_load(const char*);
+	extern BOZORTH_API struct xyt_struct* bz_prune(struct xytq_struct*, int);
+	extern BOZORTH_API int fd_readable(int);
+	/* In: BZ_SORT.C */
+	extern BOZORTH_API int sort_quality_decreasing(const void*, const void*);
+	extern BOZORTH_API int sort_x_y(const void*, const void*);
+	extern BOZORTH_API int sort_order_decreasing(int[], int, int[]);
+
+
+#ifdef __cplusplus
+}
+#endif /* !__cplusplus */
 
 #endif /* !_BOZORTH_H */

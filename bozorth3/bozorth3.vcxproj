@@ -94,7 +94,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;_DEBUG;BOZORTH3_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions);TARGET_OS</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;BOZORTH3_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions);TARGET_OS;BOZORTH_EXPORTS</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
@@ -111,7 +111,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;NDEBUG;BOZORTH3_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions);TARGET_OS</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;BOZORTH3_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions);TARGET_OS;BOZORTH_EXPORTS</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
@@ -128,7 +128,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;BOZORTH3_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions);TARGET_OS</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;BOZORTH3_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions);TARGET_OS;BOZORTH_EXPORTS</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
@@ -145,7 +145,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;BOZORTH3_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions);TARGET_OS</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;BOZORTH3_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions);TARGET_OS;BOZORTH_EXPORTS</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <PrecompiledHeader>NotUsing</PrecompiledHeader>
       <PrecompiledHeaderFile>pch.h</PrecompiledHeaderFile>
@@ -162,6 +162,7 @@
     <ClInclude Include="framework.h" />
     <ClInclude Include="inc\bozorth.h" />
     <ClInclude Include="inc\bz_array.h" />
+    <ClInclude Include="inc\nbisversion.h" />
     <ClInclude Include="pch.h" />
   </ItemGroup>
   <ItemGroup>
