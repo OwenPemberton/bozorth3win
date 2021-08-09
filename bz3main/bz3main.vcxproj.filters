@@ -15,11 +15,16 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="F:\cacheprobetrace\cacheprobe-plot\bz3\Rel_5.0.0win64\bozorth3\src\bin\bozorth3\bozorth3.c">
+    <ClCompile Include="bz3main.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="F:\cacheprobetrace\cacheprobe-plot\bz3\Rel_5.0.0win64\bozorth3\src\bin\bozorth3\usage.c">
+    <ClCompile Include="usage.c">
       <Filter>Source Files</Filter>
     </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="nbisversion.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
